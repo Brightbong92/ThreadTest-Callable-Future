@@ -1,12 +1,8 @@
 package com.example.test.sample;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 public class ThreadTest {
 	public static int value = 10;
@@ -33,11 +29,10 @@ class ThreadSample implements Runnable{
 	public void run() {
 	}
 }
-
+@Slf4j
 class Print {
-	private static Logger log = LoggerFactory.getLogger(Print.class);
 	
 	public void printThread(String name, int value) {
-		log.info(name + ": " + value);
+		log.info(name + " : " + value);
 	}
 }

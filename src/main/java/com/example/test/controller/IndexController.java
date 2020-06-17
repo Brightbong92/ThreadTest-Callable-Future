@@ -25,24 +25,24 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/plus", method = RequestMethod.GET)
-	public @ResponseBody int add(@RequestParam int value1, @RequestParam int value2) {
-		return operationService.plusOperation(value1, value2);
+	public @ResponseBody String add(@RequestParam int value1, @RequestParam int value2) {
+		return value1 + " + " + value2 + " = " + operationService.plusOperation(value1, value2);
 	}
 	
 	@RequestMapping(value = "/minus", method = RequestMethod.GET)
-	public @ResponseBody int minus(@RequestParam int value1, @RequestParam int value2) {
-		return operationService.minusOperation(value1, value2);
+	public @ResponseBody String minus(@RequestParam int value1, @RequestParam int value2) {
+		return value1 + " - " + value2 + " = " + operationService.minusOperation(value1, value2);
 		
 	}
 	
 	@RequestMapping(value = "/division", method = RequestMethod.GET)
-	public @ResponseBody int division(@RequestParam int value1, @RequestParam int value2) {
-		return operationService.divisionOperation(value1, value2);
+	public @ResponseBody String division(@RequestParam int value1, @RequestParam int value2) {
+		return value1 + " / " + value2 + " = " + operationService.divisionOperation(value1, value2);
 	}
 	
 	@RequestMapping(value = "/multiply", method = RequestMethod.GET)
-	public @ResponseBody int multiply(@RequestParam int value1, @RequestParam int value2) {
-		return operationService.multiplyOperation(value1, value2);
+	public @ResponseBody String multiply(@RequestParam int value1, @RequestParam int value2) {
+		return value1 + " * " + value2 + " = " + operationService.multiplyOperation(value1, value2);
 	}
 	
 	
