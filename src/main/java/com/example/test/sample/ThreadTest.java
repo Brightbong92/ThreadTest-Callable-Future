@@ -21,22 +21,23 @@ public class ThreadTest {
 
 class ThreadSample implements Runnable{
 	private String name;
-	private int value;
 	
 	public ThreadSample(String str, int num) {
-		this.name = str;
-		this.value = num;
+		synchronized(this){
+			this.name = str;
+			ThreadTest.value = num;
+			new Print().printThread(this.name, ThreadTest.value);
+		}
 	}
 	
 	public void run() {
-		new Print().printThread(name ,value);		
 	}
 }
 
 class Print {
 	private static Logger log = LoggerFactory.getLogger(Print.class);
 	
-	public synchronized void printThread(String name, int value) {
+	public void printThread(String name, int value) {
 		log.info(name + ": " + value);
 	}
 }
