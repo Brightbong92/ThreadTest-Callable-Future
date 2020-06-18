@@ -23,15 +23,14 @@ public class CallableTest {
 	    }
 	}
 	
-	public static void main(String[] args) throws InterruptedException, ExecutionException {
+	public static void main(String[] args) throws Exception {
 	       ExecutorService executor = Executors.newFixedThreadPool(3);
 	       Future<Integer> future1 = executor.submit(new CallableTask(13));
+	       log.info("thread1 : "+ future1.get());
 	       Future<Integer> future2 = executor.submit(new CallableTask(16));
+	       log.info("thread2 : "+ future2.get());
 	       Future<Integer> future3 = executor.submit(new CallableTask(17));
-
-	        log.info("thread1 : "+ future1.get());
-	        log.info("thread2 : "+ future2.get());
-	        log.info("thread3 : "+ future3.get());
-	        executor.shutdown();
+	       log.info("thread3 : "+ future3.get());
+	       executor.shutdown();
 	}
 }
