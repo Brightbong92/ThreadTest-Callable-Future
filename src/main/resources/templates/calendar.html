@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+
+<style>
+    #header-menu table, tr, td{ border: 1px solid black; padding:3px; border-collapse:collapse; border-spacing:0;}
+    #calendar-wrapper { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto;}
+    #calendar-wrapper table{ border-collapse:collapse; border-spacing:0;}
+    #calendar-wrapper .calendar-table > thead { border-collapse:collapse; border-spacing:0;}
+    #calendar-wrapper .calendar-table > tbody > tr { height:100px;}
+    #calendar-wrapper .reserve-wrapper > tbody > tr {height:70px;}
+    #calendar-wrapper .reserve-wrapper {width: 80%; margin-left: 60px;}
+    #calendar-wrapper caption {font-weight: bold; font-size:20px;}
+
+    .ui-datepicker-trigger{cursor: pointer;}
+    .hasDatepicker{cursor: pointer;}
+    .pagination {margin:20px 0px 30px 250px;}
+    .pagination > button { padding: 20px; margin-left: 30px;}
+    .selected-date { font-size: 20px; margin:30px 0px 0px 8px}
+    .selected-date > span { margin-left:80px;}
+    .selected-date > input { margin-left: 600px;}
+
+    
+</style>
+<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+
+<!-- jQuery UI CDN -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="./calendar.js"></script>
+
+
+</head>
+
+
+<body>
+    <div id="header-menu" class="header-menu">
+        <table class="header-table">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><label>Business Level</label></td>
+                    <td><input type="text" /></td>
+                    <td>Screen ID</td>
+                    <td><input type="text" /></td>
+                    <td>UI pattern</td>
+                    <td><input type="text" /></td>
+                    <td>Designed Date</td>
+                    <td><input type="text" /></td>
+                </tr>
+                <tr>
+                    <td>Designer</td>
+                    <td><input type="text" /></td>
+                    <td>Screen Name</td>
+                    <td colspan="3"><input style="width:98%;" type="text" /></td>
+                    <td>Confirmed Date</td>
+                    <td><input type="text" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="datepicker-wrapper">
+        <form name="datepickerForm" method="post" action="">
+            <span>기간</span>
+            <input type="text" id="startDate" />
+            ~
+            <input type="text" id="endDate" />
+            <input type="button" value="조회" onClick="showCalendar()"/>
+        </form>
+    </div>
+
+    <div id="calendar-wrapper" class="calendar-wrapper">
+
+        <table class="calendar-table" id="calendar-table">
+            <caption>
+                <span id="year">2020년</span>
+                <span id="month">May</span>
+            </caption>
+            
+            <colgroup>
+                <col width="14%"></colgroup>
+                <col width="14%"></colgroup>
+                <col width="14%"></colgroup>
+                <col width="14%"></colgroup>
+                <col width="14%"></colgroup>
+                <col width="14%"></colgroup>
+                <col width="14%"></colgroup>
+            </colgroup>
+
+            <thead>
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>                
+                </tr>
+            </thead>
+
+            <tbody id="calendar-tbody">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <table class="reserve-wrapper">
+            <caption>Reservation</caption>
+
+            <colgroup>
+                <col width="33%">
+                <col width="33%">
+                <col width="33%">
+            </colgroup>
+
+            <thead>
+                <tr>
+                    <th>일자</th>
+                    <th>요일</th>
+                    <th>국경일</th>              
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    
+    <div class="pagination">
+            <button><</button>
+            <button>></button>
+            <br/>
+            <span style="margin-left:40px;">pre</span>
+            <span style="margin-left:60px;">next</span>
+    </div>
+
+    <div class="selected-date">
+        <span>선택된 일자</span>
+        <span>(요일)</span>
+        <span>년</span>
+        <span>월</span>
+        <span>일</span>
+        <br/>
+        <input type="button" value="적용" />
+    </div>
+
+<script>
+    function showCalendar() {
+
+        if($('#startDate').val() === "" || $('#endDate').val() === "") {
+            alert("날짜를 선택해주세요.");
+            clearCalendar();
+            return false;
+        }
+
+        let startDate = new Date($('#startDate').val());
+        let endDate = new Date($('#endDate').val());
+
+        let hourMinuteSecond = 24 * 60 * 60 * 1000;
+        let differenceDay = parseInt(( endDate - startDate ) / hourMinuteSecond);
+        let differenceMonth = parseInt(( endDate - startDate ) / (hourMinuteSecond * 30));
+        let differenceYear = parseInt(( endDate - startDate ) / (hourMinuteSecond * 30 * 12));
+        console.log("differenceDay: "+differenceDay);
+        console.log("differenceMonth: "+differenceMonth);
+        console.log("differenceYear: " + differenceYear);
+
+        if(!validationCheck(differenceDay)) return false;
+
+
+        let startYear = startDate.getFullYear();
+        let startMonth = startDate.getMonth();
+        let startDay = startDate.getDate();
+
+        let endYear = endDate.getFullYear();
+        let endMonth = endDate.getMonth();
+        let endDay = endDate.getDate();
+
+        clearCalendar();
+        makeCalendar(startYear, startMonth, startDay, endDay, differenceYear, differenceMonth);
+
+        let monthName = changeMonthNumberString(startMonth+1);
+        changeYearMonth(startYear, monthName)
+
+    }
+
+</script>
+
+
+
+<script type="text/javascript">
+        $(document).ready(function () {
+                $.datepicker.setDefaults($.datepicker.regional['ko']); 
+                $( "#startDate" ).datepicker({
+                     showOn: "both",
+                     buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+                     buttonImageOnly: true,
+                     buttonText: "선택",
+                     changeMonth: true, 
+                     changeYear: true,
+                     nextText: '>>',
+                     prevText: '<<', 
+                     dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                     dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+                     monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+                     monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+                     dateFormat: "yy-mm-dd",
+                });
+                $( "#endDate" ).datepicker({
+                     showOn: "both",
+                     buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+                     buttonImageOnly: true,
+                     buttonText: "선택",
+                     changeMonth: true, 
+                     changeYear: true,
+                     nextText: '>>',
+                     prevText: '<<', 
+                     dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                     dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+                     monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+                     monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+                     dateFormat: "yy-mm-dd", 
+                });    
+        });
+</script>
+</body>
+</html>
